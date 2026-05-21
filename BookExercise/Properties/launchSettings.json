@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "BookExercise": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}
