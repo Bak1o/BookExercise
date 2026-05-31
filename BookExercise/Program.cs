@@ -4,14 +4,17 @@ using BookExercise.CreatingAndUsingObjects;
 using BookExercise.CustomDataStructures;
 using BookExercise.DictionariesAndHashCodes;
 using BookExercise.OtherNameSpace;
+using BookExercise.SearchEngine;
 using BookExercise.TreesAndGraphs;
 using System;
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics.Metrics;
 using System.Diagnostics.Tracing;
 using System.Globalization;
+using System.Reflection;
 using System.Reflection.Metadata.Ecma335;
 using System.Reflection.PortableExecutable;
 using System.Security.Cryptography;
@@ -32,7 +35,7 @@ internal class Program
 
     public static void Main(string[] args)
     {
-        
+
 
         Graph graph = new Graph(new List<int>[]
         {
@@ -70,14 +73,320 @@ internal class Program
 
 
 
+        // Car car1 = new Car("bran1", "model1", "color1", DateOnly.ParseExact("2007","yyyy"), 4000);
+        // Car car2 = new Car("bran2", "model2", "color2", DateOnly.ParseExact("2008", "yyyy"), 5000);
+        // CarSearch carsToSearch = new CarSearch();
+        // List<Car> cars = new List<Car> { car1, car2 };
+        // carsToSearch.Add(cars.ToArray());
+        //List<Car> carsByYear = carsToSearch.FindByYear(DateOnly.ParseExact("2007", "yyyy"));
+        // foreach (Car car in carsByYear)
+        // {
+        //     Console.WriteLine(car);
+        // }
+        Dictionary<char, int> dict = new Dictionary<char, int>();
+        char[] lettersOrder = { 'M', 'B', 'T', 'A', 'K', 'O', 'F', 'H', 'V', 'L', 'S', 'N', 'Z', 'Y', 'X', 'W', 'R', 'Q', 'P', 'G', 'D', 'C', 'E', 'U', 'I', 'J' };
+        
+        for (int i = 0; i < lettersOrder.Length; i++)
+        {
+          
+            dict[char.ToLower(lettersOrder[i])] = i;
+        }
 
-        PhoneBook phoneBook = BuildPhoneBookFromFile("phonebook.txt");
-        phoneBook.PrintByTown("San Antonio");
-
+        int[] array = { 34, 5, 12, 56, 23, 5,  2, 19, 12 };
+        int[] nums = { 170, 45, 75, 90, 802, 24, 2, 66 };
+        int[] newArr = RadixSort(nums);
+        int b = 10;
         
 
+
+
+    }
+    public static int[] RadixSort(int[] arr)
+    {
+        int max = arr.Max();
+        int num = max - 1;
+        int baseNum = 10;
+        int count = 0;
+        while (num != max)
+        {
+            num = max % baseNum;
+            count++;
+            baseNum = baseNum * 10;
+
+        }
+        baseNum = 1;
+        int maxBaseNum;
+        for (int i = 0; i < count; i++)
+        {
+            baseNum = baseNum * 10;
+        }
+        maxBaseNum = baseNum;
+        baseNum = 10;
+        return RadixSort(arr,baseNum,maxBaseNum);
+    }
+    public static int[] RadixSort(int[] arr, int baseNum, int maxBaseNum)
+    {
+        
+    if (baseNum > maxBaseNum)
+       {
+            return arr;
+       }
+        int i;
+        int sum = 0;
+        int[] bucketArr = new int[10];
+
+        int[] newArr = new int[arr.Length];
+
+        int index = -1;
+        for (i = 0; i < arr.Length; i++)
+       {
+             index = MapNumberIntoBucketIndex(arr[i], baseNum);
+             bucketArr[index] = bucketArr[index] + 1;
+       }
+       for (i = 0; i < bucketArr.Length; i++)
+       {
+            if (bucketArr[i] == 0)                                         //{ 170, 45, 75, 90, 802, 24, 2, 66 }
+                continue;
+                sum = sum + bucketArr[i];
+                bucketArr[i] = sum;
+       }
+       for (i = arr.Length - 1; i >= 0; i--)
+       {
+
+            index = MapNumberIntoBucketIndex(arr[i], baseNum);
+            newArr[bucketArr[index] - 1] = arr[i];
+            bucketArr[index]--;
+       }
+       return RadixSort(newArr, baseNum * 10,maxBaseNum);
+        
+           
         
     }
+
+    public static int MapNumberIntoBucketIndex(int number, int baseNum)
+    {
+        int currentBase = 10;
+        int baseTen = 10;
+        int index = -1;
+        while (currentBase <= baseNum)
+        {
+            index = number % baseTen;
+            number = number / baseTen;
+            currentBase = currentBase * 10;
+        }
+        return index;
+        //int index = -1;
+       
+        //if (baseNum > 10)
+        //{
+        //    while (true)
+        //    {
+        //        if (baseNum == 10)
+        //        {
+        //            index = index / baseNum;
+        //            break;
+        //        }
+        //        index = number % baseNum;
+        //        baseNum = baseNum / 10;
+        //    }
+        //}
+        //else
+        //{
+        //    index = number % baseNum;
+        //}
+        //return index;
+    }
+    
+    public static string CountingSort(string text)
+    {
+        string newText = text.ToLower();
+        int[] countArr = new int[26];
+        int index;
+        for (int i = 0; i < newText.Length; i++)
+        {
+             index = newText[i] - 97;
+            countArr[index] = countArr[index] + 1;
+        }
+        int sum = 0;
+        for (int i = 0; i < countArr.Length; i++)
+        {
+            if (countArr[i] > 0)
+            {
+                sum = sum + countArr[i];
+                countArr[i] = sum;
+            }
+        }
+        StringBuilder sb = new StringBuilder(newText);
+        for (int i = 0; i < newText.Length; i++)
+        {
+            index = countArr[newText[i] - 97];
+            index--;
+            sb[index] = newText[i];
+            countArr[sb[i] - 97]--;
+        }
+        return sb.ToString();
+    }
+
+    public static int[] CountingSort(int[] arr)
+    {
+        
+        int[] countArr = new int[arr.Max() + 1];
+        for (int i = 0; i < arr.Length; i++)
+        {
+            countArr[arr[i]] = countArr[arr[i]] + 1;
+        }
+        int sum = 0;
+        for (int i = 0; i < countArr.Length; i++)
+        {
+            if (countArr[i] == 0)
+                continue;
+            sum = sum + countArr[i];
+            countArr[i] = sum;
+        }
+        int[] newArr = new int[arr.Length];
+        for (int i = 0; i < arr.Length; i++)
+        {
+            newArr[countArr[arr[i]] - 1] = arr[i];
+            countArr[arr[i]]--;
+        }
+        return newArr;
+
+    }
+    public static void QuickSort(int[] arr, int startIndex, int endIndex)
+    {                                              //{ 34, 5, 12, 56, 23, 35, 80, 2, 67 }
+        if (startIndex >= endIndex)
+            return;
+        int pivotIndex = (startIndex + endIndex)/ 2;
+        int pivotElement = arr[pivotIndex];
+        int i = startIndex;
+        int j = endIndex;
+       
+        while (true)
+        {
+            while (arr[i] < pivotElement && i <= pivotIndex)
+            {
+                i++;
+            }
+            while (arr[j] > pivotElement && j >= pivotIndex)
+            {
+                j--;
+            }
+            if (i >= j)
+                break;
+            if (i == pivotIndex)
+                pivotIndex = j;
+            else if (j == pivotIndex)
+                pivotIndex = i;
+             Swap(ref arr[i], ref arr[j]);
+            i++;
+            j--;
+        }
+        QuickSort(arr, startIndex, pivotIndex);
+        QuickSort(arr, pivotIndex + 1, endIndex);
+
+
+
+    }
+    
+    public static int[] SortHalfAscHalfDesc(int[] arr)
+    {
+        int[] result = (int[])arr.Clone();
+
+        // step 1: sort whole array ascending using your merge sort
+        MergeSort(result);
+
+        // step 2: reverse the second half in place
+        int mid = result.Length / 2;
+        int left = mid;
+        int right = result.Length - 1;
+
+        while (left < right)
+        {
+            Swap(ref result[left], ref result[right]);
+            left++;
+            right--;
+        }
+
+        return result;
+    }
+    public static int[] SortHalfAscHalfDesc2(int[] arr)
+    {
+        int[] sorted = (int[])arr.Clone();
+        Array.Sort(sorted); // ascending
+
+        int mid = sorted.Length / 2;
+
+        // reverse only the second half
+        Array.Reverse(sorted, mid, sorted.Length - mid);
+
+        return sorted;
+    }
+    public static void MergeSort(int[] arr)
+    {
+        Divide(arr,0,arr.Length - 1);
+        foreach (int number in arr)
+        {
+            Console.Write($" {number}");
+        }
+    }
+    public static void Divide(int[] arr, int startIndex, int endIndex)
+    {
+
+        if (startIndex >= endIndex)
+            return;
+        int mid = (startIndex + endIndex) / 2;
+        Divide(arr, startIndex, mid);  //left
+        Divide(arr, mid + 1, endIndex); //right
+        Merge(arr,startIndex,mid,endIndex); //merge
+        
+    }
+    public static void Merge(int[] array, int start, int midd, int end)
+    {
+        int lengthL = midd - start + 1;
+        int lengthR = end - midd;
+        int[] left = new int[lengthL];
+        int[] right = new int[lengthR];
+        int i,j;
+        for (i = 0; i < lengthL; i++)
+        {
+            left[i] = array[start + i];
+        }
+        for (j = 0; j < lengthR; j++)
+        {
+            right[j] = array[midd + 1 + j];
+        }
+        i = 0;
+        j = 0;
+        int k = start;
+        while (i < lengthL && j < lengthR)
+        {
+            if (left[i] <=  right[j])
+            {
+                array[k] = left[i];
+                i++;
+            }
+            else
+            {
+                array[k] = right[j];
+                j++;
+            }
+            k++;
+        }
+        while(i < lengthL)
+        {
+            array[k] = left[i];
+            i++;
+            k++;
+        }
+        while(j < lengthR)
+        {
+            array[k] = right[j];
+            j++;
+            k++;
+        }
+       
+    }
+
     public static PhoneBook BuildPhoneBookFromFile(string path)
     {
         string[] lines = File.ReadAllLines(path);
@@ -994,11 +1303,11 @@ internal class Program
 
     }
     public static void BubbleSort(int[] arr)
-    {
-        int n = arr.Length;
-        for (int i = 0; i < n - 1; i++)
-        {
-            for (int j = 0; j < n - i - 1; j++)
+    {                                                              ///5, 3, 2, 7, 9, 1;
+        int n = arr.Length;                                        // 3, 2, 5, 7, 1, 9;
+        for (int i = 0; i < n - 1; i++)                            // 2, 3, 5, 1, 7, 9;
+        {                                                          // 2, 3, 1, 5, 7, 9;
+            for (int j = 0; j < n - i - 1; j++)                    // 2, 1, 3
             {
                 if (arr[j] > arr[j + 1])
                 {
@@ -1811,4 +2120,60 @@ internal class Program
         }
         Console.WriteLine(" } ");
     }
+}
+public class Felidae
+{
+    private bool male;
+    // This constructor calls another constructor
+    public Felidae() : this(true)
+    { }
+    // This is the constructor that is inherited
+    public Felidae(bool male)
+    {
+        this.male = male;
+    }
+    public bool Male
+    {
+        get { return male; }
+        set { this.male = value; }
+    }
+}
+public class Lion : Felidae,IReproducible<Lion>
+{
+    private int weight;
+    // Keyword "base" will be explained in the next paragraph
+    public Lion(bool male, int weight) : base(male)
+    {
+        this.weight = weight;
+    }
+    public int Weight
+    {
+        get { return weight; }
+        set { this.weight = value; }
+    }
+
+    public Lion[] Reproduce(Lion mate)
+    {
+        throw new NotImplementedException();
+    }
+}
+public class AfricanLion : Lion
+{
+    // …
+    // If we comment out the ": base(male, weight)" line
+    // the class will not compile. Try it.
+    public AfricanLion(bool male, int weight)
+    : base(male, weight)
+    { }
+    public override string ToString()
+    {
+        return string.Format(
+        "(AfricanLion, male: {0}, weight: {1})",
+        this.Male, this.Weight);
+    }
+    // …
+}
+public interface IReproducible<T>  where T : Felidae
+{
+    T[] Reproduce(T mate);
 }
