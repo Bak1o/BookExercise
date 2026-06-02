@@ -2,6 +2,7 @@
 using BookExercise._22thExercise;
 using BookExercise.CreatingAndUsingObjects;
 using BookExercise.CustomDataStructures;
+using BookExercise.CustomExercise;
 using BookExercise.DictionariesAndHashCodes;
 using BookExercise.OtherNameSpace;
 using BookExercise.SearchEngine;
@@ -33,7 +34,21 @@ internal class Program
     static char[] path = new char[lab.GetLength(0) * lab.GetLength(1)];
     static int position = 0;
 
-    public static void Main(string[] args)
+    static Dictionary<char, int> dict = new Dictionary<char, int>();
+    static char[] lettersOrder = { 'M', 'B', 'T', 'A', 'K', 'O', 'F', 'H', 'V', 'L', 'S', 'N', 'Z', 'Y', 'X', 'W', 'R', 'Q', 'P', 'G', 'D', 'C', 'E', 'U', 'I', 'J' };
+    static Program()
+    {
+        int i = 0;
+        for (i = 0; i < lettersOrder.Length; i++)
+        {
+
+            dict[char.ToLower(lettersOrder[i])] = i;
+        }
+
+    }
+   
+
+public static void Main(string[] args)
     {
 
 
@@ -83,24 +98,265 @@ internal class Program
         // {
         //     Console.WriteLine(car);
         // }
-        Dictionary<char, int> dict = new Dictionary<char, int>();
-        char[] lettersOrder = { 'M', 'B', 'T', 'A', 'K', 'O', 'F', 'H', 'V', 'L', 'S', 'N', 'Z', 'Y', 'X', 'W', 'R', 'Q', 'P', 'G', 'D', 'C', 'E', 'U', 'I', 'J' };
-        
-        for (int i = 0; i < lettersOrder.Length; i++)
+        int[] array = { 10, 12, 4, 34, 13, 45 };
+        for (int i = 1; i < array.Length; i++)
         {
-          
-            dict[char.ToLower(lettersOrder[i])] = i;
+            int element = array[i];
+            int index = i;
+            while(index > 0 && element < array[index - 1])
+            {
+               
+                array[index] = array[index - 1];
+                index--;
+                
+            }
+            array[index] = element;
         }
-
-        int[] array = { 34, 5, 12, 56, 23, 5,  2, 19, 12 };
-        int[] nums = { 170, 45, 75, 90, 802, 24, 2, 66 };
-        int[] newArr = RadixSort(nums);
         int b = 10;
+        (string name, int price)[] carss = { ("BMW", 18000), ("Audi", 7000), ("Toyota", 12000), ("Ford", 4000),
+        ("Mercedes", 25000), ("Opel", 7000), ("Honda", 12000), ("Kia", 3000), ("Mazda", 18000),("Tesla", 25000),
+        ("Fiat", 4000),("Volvo", 12000),("Nissan", 9000),("Lexus", 18000),("Subaru", 7000)};
+        
+        
+        List<MyCar> cars = new List<MyCar> { new MyCar("BMW",18000m), new MyCar("Audi",7000), new MyCar("Toyota", 12000),
+        new MyCar("Ford", 4000),new MyCar("Mercedes", 25000),new MyCar("Opel", 7000),new MyCar("Honda", 12000),
+        new MyCar("Kia", 3000),new MyCar("Mazda", 18000),new MyCar("Tesla", 25000),new MyCar("Fiat", 4000),
+        new MyCar("Volvo", 12000),new MyCar("Nissan", 9000) , new MyCar("Lexus", 18000), new MyCar("Subaru", 7000)};
+        char[] lettersOrder = { 'M', 'B', 'T', 'A', 'K', 'O', 'F', 'H', 'V', 'L', 'S', 'N', 'Z', 'Y', 'X', 'W', 'R', 'Q', 'P', 'G', 'D', 'C', 'E', 'U', 'I', 'J' };
+        MyStringComparer stringComparer = new MyStringComparer(lettersOrder);
+        MyCarComparer carComparer = new MyCarComparer(stringComparer);
+
+        cars.Sort(carComparer);
+        foreach (MyCar car in cars)
+        {
+            Console.WriteLine($" car name {car.Brand}, car price {car.Price}");
+        }
+        
+         
+
         
 
 
 
     }
+    public static void Custom((string name, int price)[] arr)
+    {
+        MergeSortAscending(arr, 0, arr.Length - 1);
+        
+        int index = FindSplitIndex(arr, 10000);
+        if (index != -1)
+        {
+            MergeSortDescending(arr, index, arr.Length - 1);
+        }
+        index = 0;
+        while (index < arr.Length -1)
+        {
+            if (arr[index].price == arr[index + 1].price)
+            {
+                int startIndex = index;
+                int endIndex = index + 1;
+                index++;
+                while (index < arr.Length - 1 &&(arr[index].price == arr[index + 1].price))
+                {
+                    endIndex = index + 1;
+                    index++;
+                }
+                SortByName(arr, startIndex, endIndex);
+
+            }
+            else
+            {
+                index++;
+            }
+        }
+
+    }
+    public static void MergeSortAscending((string name, int price)[] arr, int start, int end)
+    {
+        if (start >= end)
+            return;
+        int midd = (start + end)/2;
+        MergeSortAscending(arr, start, midd);
+        MergeSortAscending(arr, midd + 1, end);
+        MergeAscending(arr, start,midd, end);
+    }
+    public static void MergeAscending((string name, int price)[] arr, int start,int mid, int end)
+    {
+        int leftLength = mid - start + 1;
+        int rightLegth = end - mid;
+        int i;
+        int j;
+        int k;
+        k = start;
+        (string name, int price)[] leftArr = new (string,int)[leftLength];
+        (string name, int price)[] rightArr = new (string,int)[rightLegth];
+        for (i = 0; i < leftLength; i++)
+        {
+            leftArr[i] = arr[k];
+            k++;
+        }
+        
+        for (j = 0; j < rightLegth; j++)
+        {
+            rightArr[j] = arr[k];
+            k++;
+        }
+        i = 0;
+        j = 0;                                       //  4, 35, 56/ 6, 12, 90
+        k = start;
+        while (i < leftLength && j < rightLegth)
+        {
+            var leftElement = leftArr[i];
+            var rightElement = rightArr[j];
+            if (leftElement.price <= rightElement.price)
+            {
+                arr[k] = leftElement;
+                i++;
+            }
+            else
+            {
+                arr[k] = rightElement;
+                j++;
+            }
+            k++;
+        }
+        while (i < leftLength)
+        {
+            arr[k] = leftArr[i];
+            i++;
+            k++;
+        }
+        while (j < rightLegth)
+        {
+            arr[k] = rightArr[j];
+            j++;
+            k++;
+        }
+        
+
+
+    }
+    public static void MergeSortDescending((string name, int price)[] arr, int start, int end)
+    {
+        if (start >= end)
+            return;
+        int midd = (start + end) / 2;
+        MergeSortDescending(arr, start, midd);
+        MergeSortDescending(arr, midd + 1, end);
+        MergeDescending(arr, start, midd, end);
+    }
+    public static void MergeDescending((string name, int price)[] arr, int start, int mid, int end)
+    {
+        int leftLength = mid - start + 1;
+        int rightLegth = end - mid;
+        int i;
+        int j;
+        int k;
+        k = start;
+        (string name, int price)[] leftArr = new (string, int)[leftLength];
+        (string name, int price)[] rightArr = new (string, int)[rightLegth];
+        for (i = 0; i < leftLength; i++)
+        {
+            leftArr[i] = arr[k];
+            k++;
+        }
+
+        for (j = 0; j < rightLegth; j++)
+        {
+            rightArr[j] = arr[k];
+            k++;
+        }
+        i = 0;
+        j = 0;                                       //  4, 35, 56/ 6, 12, 90
+        k = start;
+        while (i < leftLength && j < rightLegth)
+        {
+            var leftElement = leftArr[i];
+            var rightElement = rightArr[j];
+            if (leftElement.price >= rightElement.price)
+            {
+                arr[k] = leftElement;
+                i++;
+            }
+            else
+            {
+                arr[k] = rightElement;
+                j++;
+            }
+            k++;
+        }
+        while (i < leftLength)
+        {
+            arr[k] = leftArr[i];
+            i++;
+            k++;
+        }
+        while (j < rightLegth)
+        {
+            arr[k] = rightArr[j];
+            j++;
+            k++;
+        }
+
+
+
+    }
+    public static int FindSplitIndex((string name, int price)[] sortedArr, int threshold)
+    {
+        if (sortedArr[0].price > threshold)
+            return 0;
+        if (sortedArr[sortedArr.Length - 1].price <= threshold)
+            return -1;
+        for (int i = 1; i < sortedArr.Length; i++)
+        {
+            if (sortedArr[i - 1].price <= threshold &&  sortedArr[i].price > threshold)
+                return i;
+        }
+        return -1;
+
+    }
+    public static void SortByName((string name,int price)[] arr, int startIndex, int endIndex)
+    {
+        
+        for (int i = startIndex + 1; i <= endIndex; i++ )
+        {
+            var element = arr[i];
+            int index = i;
+            while (index > startIndex && MyStringCompare(element.name, arr[index - 1].name) == -1)
+            {
+                arr[index] = arr[index - 1];
+                index--;
+            }
+            arr[index] = element;
+        }
+
+    }
+    public static int MyStringCompare(string firstElement, string secondElement)
+    {
+        string firstToLower = firstElement.ToLower();
+        string secondToLower = secondElement.ToLower();
+        
+
+       int i = 0;
+        while (i < firstElement.Length && i < secondElement.Length)
+        {
+            if (dict[firstToLower[i]] < dict[secondToLower[i]])
+                return -1;
+            if (dict[firstToLower[i]] > dict[secondToLower[i]])
+                return 1;
+            i++;
+        }
+        if (firstToLower.Length < secondToLower.Length)
+            return -1;
+        if (firstToLower.Length > secondToLower.Length)
+            return 1;
+        return 0;
+
+            
+        
+
+    }
+    
     public static int[] RadixSort(int[] arr)
     {
         int max = arr.Max();
