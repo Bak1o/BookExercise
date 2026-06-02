@@ -122,7 +122,7 @@ public static void Main(string[] args)
         new MyCar("Ford", 4000),new MyCar("Mercedes", 25000),new MyCar("Opel", 7000),new MyCar("Honda", 12000),
         new MyCar("Kia", 3000),new MyCar("Mazda", 18000),new MyCar("Tesla", 25000),new MyCar("Fiat", 4000),
         new MyCar("Volvo", 12000),new MyCar("Nissan", 9000) , new MyCar("Lexus", 18000), new MyCar("Subaru", 7000)};
-        char[] lettersOrder = { 'M', 'B', 'T', 'A', 'K', 'O', 'F', 'H', 'V', 'L', 'S', 'N', 'Z', 'Y', 'X', 'W', 'R', 'Q', 'P', 'G', 'D', 'C', 'E', 'U', 'I', 'J' };
+
         MyStringComparer stringComparer = new MyStringComparer(lettersOrder);
         MyCarComparer carComparer = new MyCarComparer(stringComparer);
 
