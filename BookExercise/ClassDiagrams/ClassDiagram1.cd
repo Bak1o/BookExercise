@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="BookExercise.Chapter20.Course">
+    <Position X="8.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAgAAAAAACAAAAQAAAAAAAAACAAAAAAAAAA=</HashCode>
+      <FileName>Chapter20\Course.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BookExercise.Chapter20.Person">
+    <Position X="4.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Chapter20\Person.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BookExercise.Chapter20.School">
+    <Position X="0.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAAAAAAABAAAAAABAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Chapter20\School.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BookExercise.Chapter20.SchoolClass">
+    <Position X="4.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAICAAIAAAAAAAAgAAAAAAAAAAAAAAAAAAIAAgAAAAA=</HashCode>
+      <FileName>Chapter20\SchoolClass.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BookExercise.Chapter20.Studenttt">
+    <Position X="6.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>Chapter20\Studenttt.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BookExercise.Chapter20.Teacher">
+    <Position X="2.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>Chapter20\Teacher.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

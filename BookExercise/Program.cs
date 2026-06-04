@@ -125,12 +125,14 @@ internal class Program
 
         MyStringComparer stringComparer = new MyStringComparer(lettersOrder);
         MyCarComparer carComparer = new MyCarComparer(stringComparer);
-
+        
         cars.Sort(carComparer);
-        foreach (MyCar car in cars)
-        {
-            Console.WriteLine($" car name {car.Brand}, car price {car.Price}");
-        }
+        IList<IImage> images = new List<IImage>();
+        images.Add(new GifImage());
+        images.Add(new JpegImage());
+        ImageCollection imageRepository = new ImageCollection(images);
+        imageRepository.CreateThumbnails();
+        
 
 
 
@@ -1448,5 +1450,58 @@ internal class Program
     public interface IReproducible<T> where T : Felidae
     {
         T[] Reproduce(T mate);
+    }
+    public class Singleton
+    {
+        private static Singleton _instance;
+        static Singleton()
+        {
+            _instance = new Singleton();
+        }
+        public static Singleton Instance
+        {
+            get { return _instance; }
+        }
+        private Singleton()
+        {
+
+        }
+    }
+    public class Thumbnail
+    { }
+    public interface IImage
+    {
+        Thumbnail CreateThumbnail();
+    }
+    public class GifImage : IImage
+    {
+       public Thumbnail CreateThumbnail()
+        {
+            throw new NotImplementedException();
+        }
+    }
+    public class JpegImage : IImage
+    {
+        public Thumbnail CreateThumbnail()
+        {
+            throw new NotImplementedException();
+        }
+    }
+    public class ImageCollection
+    {
+        private IList<IImage> _images;
+        public ImageCollection(IList<IImage> images)
+        {
+            _images = images;
+        }
+        public IList<Thumbnail> CreateThumbnails()
+        {
+            IList<Thumbnail> thumbnails = new List<Thumbnail>(_images.Count);
+            foreach (IImage thumb in _images)
+            {
+                thumbnails.Add(thumb.CreateThumbnail());
+            }
+            return thumbnails;
+        }
     }
 }
