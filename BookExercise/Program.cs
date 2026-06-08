@@ -1,9 +1,12 @@
 ﻿using BookExercise;
 using BookExercise._22thExercise;
+using BookExercise.Chapter20;
+using BookExercise.Chapter20.Exercise_8;
 using BookExercise.CreatingAndUsingObjects;
 using BookExercise.CustomDataStructures;
 using BookExercise.CustomExercise;
 using BookExercise.DictionariesAndHashCodes;
+using BookExercise.Extensions;
 using BookExercise.OtherNameSpace;
 using BookExercise.SearchEngine;
 using BookExercise.TreesAndGraphs;
@@ -18,8 +21,10 @@ using System.Globalization;
 using System.Reflection;
 using System.Reflection.Metadata.Ecma335;
 using System.Reflection.PortableExecutable;
+using System.Runtime.Intrinsics.Arm;
 using System.Security.Cryptography;
 using System.Text;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 internal class Program
 {
@@ -52,95 +57,120 @@ internal class Program
     {
 
 
-        Graph graph = new Graph(new List<int>[]
+        List<int> list = new List<int>() { 20, 1, 4, 8, 9, 44 };
+
+
+        var evenNumbers = list.FindAll((i) =>
+             {
+                 return (i % 2 == 0);
+             });
+        Func<int, bool> intFunc = (x) => x < 10;
+        Func<bool> boolFunc = () => true;
+        List<int> numbers = new List<int>() { 1,2, 3, 4,
+            5, 6, 7, 8, 9, 10 };
+        var evenNums =
+            from num in numbers
+            where num % 2 == 0
+            select num;
+        foreach (var item in evenNums)
         {
-            new List<int>() { 1, 2 },
-            new List<int>() { 0, 2},
-            new List<int>() { 0, 1, 3, 4 },
-            new List<int>() { 2, 4 },
-            new List<int>() { 2, 3 }
-
-        });
-        Graph graph1 = new Graph(new List<int>[]
-        {
-            new List<int>() { 1, 2 },
-            new List<int>() { 0, 3},
-            new List<int>() { 0, 3},
-            new List<int>() { 1, 2 },
-            new List<int>() { 5, 6},
-            new List<int>() { 4, 7},
-            new List<int>() { 4, 7},
-            new List<int>() { 5, 6}
-
-
-        });
-        Graph graph2 = new Graph(new List<int>[]
-       {
-            new List<int>() { 6, 1},
-            new List<int>() { 0, 2, 5},
-            new List<int>() { 1, 3 },
-            new List<int>() { 2, 4},
-            new List<int>() { 3, 5 },
-            new List<int>() { 1, 4, 6 },
-            new List<int>() { 0, 5 }
-
-       });
-
-
-
-        // Car car1 = new Car("bran1", "model1", "color1", DateOnly.ParseExact("2007","yyyy"), 4000);
-        // Car car2 = new Car("bran2", "model2", "color2", DateOnly.ParseExact("2008", "yyyy"), 5000);
-        // CarSearch carsToSearch = new CarSearch();
-        // List<Car> cars = new List<Car> { car1, car2 };
-        // carsToSearch.Add(cars.ToArray());
-        //List<Car> carsByYear = carsToSearch.FindByYear(DateOnly.ParseExact("2007", "yyyy"));
-        // foreach (Car car in carsByYear)
-        // {
-        //     Console.WriteLine(car);
-        // }
-        int[] array = { 10, 12, 4, 34, 13, 45 };
-        for (int i = 1; i < array.Length; i++)
-        {
-            int element = array[i];
-            int index = i;
-            while (index > 0 && element < array[index - 1])
-            {
-
-                array[index] = array[index - 1];
-                index--;
-
-            }
-            array[index] = element;
+            Console.Write(item + " ");
         }
-        int b = 10;
-        (string name, int price)[] carss = { ("BMW", 18000), ("Audi", 7000), ("Toyota", 12000), ("Ford", 4000),
-        ("Mercedes", 25000), ("Opel", 7000), ("Honda", 12000), ("Kia", 3000), ("Mazda", 18000),("Tesla", 25000),
-        ("Fiat", 4000),("Volvo", 12000),("Nissan", 9000),("Lexus", 18000),("Subaru", 7000)};
+        Console.WriteLine();
+        string[] words = { "cherry", "apple", "blueberry" };
+        var wordsSortedByLength =
+            from word in words
+            orderby word.Length descending
+            select word;
+        foreach (var word in wordsSortedByLength)
+        {
+            Console.WriteLine(word + " ");
 
 
-        List<MyCar> cars = new List<MyCar> { new MyCar("BMW",18000m), new MyCar("Audi",7000), new MyCar("Toyota", 12000),
-        new MyCar("Ford", 4000),new MyCar("Mercedes", 25000),new MyCar("Opel", 7000),new MyCar("Honda", 12000),
-        new MyCar("Kia", 3000),new MyCar("Mazda", 18000),new MyCar("Tesla", 25000),new MyCar("Fiat", 4000),
-        new MyCar("Volvo", 12000),new MyCar("Nissan", 9000) , new MyCar("Lexus", 18000), new MyCar("Subaru", 7000)};
+        }
+        Console.WriteLine();
+        int[] arr = { 5, 4, 1, 3, 9, 8, 6, 7, 2,
+       0, 10, 11, 12, 13 };
+        int divisor = 5;
+        var numberGroups =
+            from number in arr
+            group number by number % divisor into grroup
+            select new { Remainder = grroup.Key, Numbers = grroup };
+        foreach (var grroup in numberGroups)
+        {
+            Console.WriteLine($"Numbers with a remainder " +
+                $"of{grroup.Remainder}, when divided by {divisor}");
+            foreach (var number in grroup.Numbers)
+            {
+                Console.WriteLine(number);
+            }
+        }
+        Console.WriteLine();
 
-        MyStringComparer stringComparer = new MyStringComparer(lettersOrder);
-        MyCarComparer carComparer = new MyCarComparer(stringComparer);
+        List<Stu> stus = new List<Stu>() { new Stu("nika", "gulbani", 34), new Stu("ana", "chagunava", 21),
+        new Stu("anamaria", "kereselidze", 23), new Stu("gio", "amashukeli", 24)};
+       List<Stu> studentsByNameComparison = stus.Where(x => x.FirstName.CompareTo(x.LastName) <  0).ToList();
+        var studentsByAgeBetween = stus
+                                             .Where(x => x.Age > 18 && x.Age <= 24)
+                                             .Select(x => $"{x.FirstName} {x.LastName}")
+                                             .ToList();
         
-        cars.Sort(carComparer);
-        IList<IImage> images = new List<IImage>();
-        images.Add(new GifImage());
-        images.Add(new JpegImage());
-        ImageCollection imageRepository = new ImageCollection(images);
-        imageRepository.CreateThumbnails();
+        NameComparer nComparer = new NameComparer();
+        var namesByDesc = stus.OrderByDescending(x => x.FirstName)
+                                 .ThenBy(x => x.LastName);
+        var namesByDescLinq = (from s in stus
+                       orderby s.FirstName descending,
+                               s.LastName descending
+                       select s).ToList();
+                            
+       foreach (var stu in namesByDesc)
+        {
+            Console.WriteLine(stu);
+        }
+        int[] nums = { 4, 21, 42, 7, 3 };
+        var lambda = nums.Where(x => x % 3 == 0 && x % 7 == 0);
+        Console.WriteLine();
+        foreach (var n in lambda)
+        {
+            Console.WriteLine(n);
+        }
+        var linq = from x in nums
+                   where x % 3 == 0 && x % 7 == 0
+                   select x;
+        foreach (var n in linq)
+        {
+            Console.WriteLine(n);
+        }
+        Console.WriteLine();
+        string text = "this iS a Sample sentence.";
+        string newText = text.CapitalizeFirstLetters();
+        Console.WriteLine(newText);
+
+        (string name, List<string> number)[] phoneBook = {("Kate Wilson" ,new List<string>() { "+3592981981", "+3598862536" }),
+                ("someName",new List<string>(){"1234"})};
+        Dictionary<string, List<string>> dict = new Dictionary<string, List<string>>();
+foreach (var entry in phoneBook)
+{
+            List<string> elements;
+            if (!dict.TryGetValue(entry.name,out elements))
+            {
+                elements = new List<string>();
+                dict[entry.name] = elements;
+            }
+            elements.AddRange(entry.number);
+    
+}
         
-
-
-
-
-
-
-
     }
+
+
+
+
+
+
+        
+
+    
     public static void Custom((string name, int price)[] arr)
     {
         MergeSortAscending(arr, 0, arr.Length - 1);
@@ -1503,5 +1533,21 @@ internal class Program
             }
             return thumbnails;
         }
+    }
+}
+internal class Stu
+{
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+    public int Age { get; set; }
+    public Stu(string firstName, string lastName, int age)
+    {
+      FirstName = firstName;
+         LastName = lastName;
+        Age = age;
+    }
+    public override string ToString()
+    {
+        return $"first name: {FirstName}, last name: {LastName}, age: {Age}";
     }
 }
