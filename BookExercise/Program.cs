@@ -9,7 +9,7 @@ using BookExercise.DictionariesAndHashCodes;
 using BookExercise.Extensions;
 using BookExercise.OtherNameSpace;
 using BookExercise.SearchEngine;
-using BookExercise.TreesAndGraphs;
+using BookExercise.CustomDataStructures.TreesAndGraphs;
 using System;
 using System.Collections;
 using System.Collections.Concurrent;
