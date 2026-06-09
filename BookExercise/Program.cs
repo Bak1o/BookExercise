@@ -158,6 +158,7 @@ foreach (var entry in phoneBook)
                 dict[entry.name] = elements;
             }
             elements.AddRange(entry.number);
+         
     
 }
         
@@ -174,174 +175,9 @@ foreach (var entry in phoneBook)
     
    
 
-    public static int[] RadixSort(int[] arr)
-    {
-        int max = arr.Max();
-        int num = max - 1;
-        int baseNum = 10;
-        int count = 0;
-        while (num != max)
-        {
-            num = max % baseNum;
-            count++;
-            baseNum = baseNum * 10;
+  
 
-        }
-        baseNum = 1;
-        int maxBaseNum;
-        for (int i = 0; i < count; i++)
-        {
-            baseNum = baseNum * 10;
-        }
-        maxBaseNum = baseNum;
-        baseNum = 10;
-        return RadixSort(arr, baseNum, maxBaseNum);
-    }
-    public static int[] RadixSort(int[] arr, int baseNum, int maxBaseNum)
-    {
-
-        if (baseNum > maxBaseNum)
-        {
-            return arr;
-        }
-        int i;
-        int sum = 0;
-        int[] bucketArr = new int[10];
-
-        int[] newArr = new int[arr.Length];
-
-        int index = -1;
-        for (i = 0; i < arr.Length; i++)
-        {
-            index = MapNumberIntoBucketIndex(arr[i], baseNum);
-            bucketArr[index] = bucketArr[index] + 1;
-        }
-        for (i = 0; i < bucketArr.Length; i++)
-        {
-            if (bucketArr[i] == 0)                                         //{ 170, 45, 75, 90, 802, 24, 2, 66 }
-                continue;
-            sum = sum + bucketArr[i];
-            bucketArr[i] = sum;
-        }
-        for (i = arr.Length - 1; i >= 0; i--)
-        {
-
-            index = MapNumberIntoBucketIndex(arr[i], baseNum);
-            newArr[bucketArr[index] - 1] = arr[i];
-            bucketArr[index]--;
-        }
-        return RadixSort(newArr, baseNum * 10, maxBaseNum);
-
-
-
-    }
-
-    public static int MapNumberIntoBucketIndex(int number, int baseNum)
-    {
-        int currentBase = 10;
-        int baseTen = 10;
-        int index = -1;
-        while (currentBase <= baseNum)
-        {
-            index = number % baseTen;
-            number = number / baseTen;
-            currentBase = currentBase * 10;
-        }
-        return index;
-
-    }
-
-    public static string CountingSort(string text)
-    {
-        string newText = text.ToLower();
-        int[] countArr = new int[26];
-        int index;
-        for (int i = 0; i < newText.Length; i++)
-        {
-            index = newText[i] - 97;
-            countArr[index] = countArr[index] + 1;
-        }
-        int sum = 0;
-        for (int i = 0; i < countArr.Length; i++)
-        {
-            if (countArr[i] > 0)
-            {
-                sum = sum + countArr[i];
-                countArr[i] = sum;
-            }
-        }
-        StringBuilder sb = new StringBuilder(newText);
-        for (int i = 0; i < newText.Length; i++)
-        {
-            index = countArr[newText[i] - 97];
-            index--;
-            sb[index] = newText[i];
-            countArr[sb[i] - 97]--;
-        }
-        return sb.ToString();
-    }
-
-    public static int[] CountingSort(int[] arr)
-    {
-
-        int[] countArr = new int[arr.Max() + 1];
-        for (int i = 0; i < arr.Length; i++)
-        {
-            countArr[arr[i]] = countArr[arr[i]] + 1;
-        }
-        int sum = 0;
-        for (int i = 0; i < countArr.Length; i++)
-        {
-            if (countArr[i] == 0)
-                continue;
-            sum = sum + countArr[i];
-            countArr[i] = sum;
-        }
-        int[] newArr = new int[arr.Length];
-        for (int i = 0; i < arr.Length; i++)
-        {
-            newArr[countArr[arr[i]] - 1] = arr[i];
-            countArr[arr[i]]--;
-        }
-        return newArr;
-
-    }
-    public static void QuickSort(int[] arr, int startIndex, int endIndex)
-    {                                              //{ 34, 5, 12, 56, 23, 35, 80, 2, 67 }
-        if (startIndex >= endIndex)
-            return;
-        int pivotIndex = (startIndex + endIndex) / 2;
-        int pivotElement = arr[pivotIndex];
-        int i = startIndex;
-        int j = endIndex;
-
-        while (true)
-        {
-            while (arr[i] < pivotElement && i <= pivotIndex)
-            {
-                i++;
-            }
-            while (arr[j] > pivotElement && j >= pivotIndex)
-            {
-                j--;
-            }
-            if (i >= j)
-                break;
-            if (i == pivotIndex)
-                pivotIndex = j;
-            else if (j == pivotIndex)
-                pivotIndex = i;
-            Swap(ref arr[i], ref arr[j]);
-            i++;
-            j--;
-        }
-        QuickSort(arr, startIndex, pivotIndex);
-        QuickSort(arr, pivotIndex + 1, endIndex);
-
-
-
-    }
-
+   
     public static int[] SortHalfAscHalfDesc(int[] arr)
     {
         int[] result = (int[])arr.Clone();
@@ -596,21 +432,7 @@ foreach (var entry in phoneBook)
 
 
 
-    public static void Something(int[] arr)
-    {
-        int currentIndex;
-        for (int i = 1; i < arr.Length; i++)
-        {
-            currentIndex = i;
-            int value = arr[i];
-            while (currentIndex > 0 && value < arr[currentIndex - 1])
-            {
-                arr[currentIndex] = arr[currentIndex - 1];
-                currentIndex--;
-            }
-            arr[currentIndex] = value;
-        }
-    }
+   
 
 
 
@@ -765,20 +587,7 @@ foreach (var entry in phoneBook)
 
 
     }
-    public static void BubbleSort(int[] arr)
-    {                                                              ///5, 3, 2, 7, 9, 1;
-        int n = arr.Length;                                        // 3, 2, 5, 7, 1, 9;
-        for (int i = 0; i < n - 1; i++)                            // 2, 3, 5, 1, 7, 9;
-        {                                                          // 2, 3, 1, 5, 7, 9;
-            for (int j = 0; j < n - i - 1; j++)                    // 2, 1, 3
-            {
-                if (arr[j] > arr[j + 1])
-                {
-                    Swap(ref arr[j], ref arr[j + 1]);
-                }
-            }
-        }
-    }
+   
 
     public static int MultiplicationRecursive(int a, int b)
     {                                        // 4       5
@@ -796,24 +605,7 @@ foreach (var entry in phoneBook)
 
 
 
-    public static void InsertionSort(int[] arr)
-    {
-        if (arr == null)
-            return;
-        for (int i = 1; i < arr.Length; i++)
-        {
-            int currIndex = i;
-            while (currIndex - 1 >= 0)
-            {
-                if (arr[currIndex] >= arr[currIndex - 1])
-                    break;
-
-                Swap(ref arr[currIndex], ref arr[currIndex - 1]);
-                currIndex--;
-
-            }
-        }
-    }
+    
 
 
 

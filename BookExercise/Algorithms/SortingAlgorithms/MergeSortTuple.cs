@@ -8,9 +8,9 @@ namespace BookExercise.Algorithms.SortingAlgorithms
 {
     internal static class MergeSortTuple
     {
-        public static void Run((string name, int price)[] array,int start, int end)
+        public static void Run((string name, int price)[] array)
         {
-            Divide(array,start,end);
+            Divide(array,0,array.Length - 1);
         }
        
         private static void Divide((string name, int price)[] arr, int start, int end)
