@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookExercise.TreesAndGraphs
+namespace BookExercise.CustomDataStructures.TreesAndGraphs
 {
     public class BinarySearchTree<T> where T : IComparable<T>
     {
