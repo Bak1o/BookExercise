@@ -6,7 +6,7 @@ using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookExercise.DictionariesAndHashCodes
+namespace BookExercise.CustomDataStructures.DictionariesAndHashCodes
 {
     internal class MyHashDictionary<K, V> : IMyDictionary<K, V>, IEnumerable<MyKeyValuePair<K, V>>
     {

@@ -1,4 +1,4 @@
-﻿using BookExercise.DictionariesAndHashCodes;
+﻿using BookExercise.CustomDataStructures.DictionariesAndHashCodes;
 using System;
 using System.Collections.Generic;
 using System.Linq;

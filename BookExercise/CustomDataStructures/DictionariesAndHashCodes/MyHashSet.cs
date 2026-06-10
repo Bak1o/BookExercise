@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookExercise.DictionariesAndHashCodes
+namespace BookExercise.CustomDataStructures.DictionariesAndHashCodes
 {
     public class MyHashSet<T> : IEnumerable<T>
     {

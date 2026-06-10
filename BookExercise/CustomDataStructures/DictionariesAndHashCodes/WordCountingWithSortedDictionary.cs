@@ -4,28 +4,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookExercise.DictionariesAndHashCodes
+namespace BookExercise.CustomDataStructures.DictionariesAndHashCodes
 {
-    public class WordCountsWithDictionary
+    internal class WordCountingWithSortedDictionary
     {
-        public static IDictionary<string, int> GetWordOccuranceMap(string text)
+        public static IDictionary<string, int> GetWordOccurrenceMap(string text)
         {
             string[] tokens = text.Split(' ', '.', ',', '-', '?', '!');
-
-            IDictionary<string, int> occurances = new Dictionary<string, int>();
+            IDictionary<string, int> words = new SortedDictionary<string, int>(new MyCaseInsensitiveComparer());
             foreach (string word in tokens)
             {
                 if (!string.IsNullOrEmpty(word.Trim()))
                 {
                     int count;
-                    if (!occurances.TryGetValue(word, out count))
+                    if (!words.TryGetValue(word, out count))
                     {
                         count = 0;
                     }
-                    occurances[word] = count + 1;
+                    words[word] = count + 1;
                 }
             }
-            return occurances;
+            return words;
         }
         public static void PrintWordOccuranceCount(IDictionary<string, int> wordOccuranceMap)
         {

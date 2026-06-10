@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookExercise.DictionariesAndHashCodes
+namespace BookExercise.CustomDataStructures.DictionariesAndHashCodes
 {
     internal class MValueDictionary<K, V> : IEnumerable<KeyValuePair<K, List<V>>>
     {

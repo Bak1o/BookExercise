@@ -5,7 +5,7 @@ using BookExercise.Chapter20.Exercise_8;
 using BookExercise.CreatingAndUsingObjects;
 using BookExercise.CustomDataStructures;
 using BookExercise.CustomExercise;
-using BookExercise.DictionariesAndHashCodes;
+using BookExercise.CustomDataStructures.DictionariesAndHashCodes;
 using BookExercise.Extensions;
 using BookExercise.OtherNameSpace;
 using BookExercise.SearchEngine;
