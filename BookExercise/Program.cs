@@ -26,6 +26,7 @@ using System.Security.Cryptography;
 using System.Text;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
+delegate bool ProductChecker(Product product);
 internal class Program
 {
     static char[,] lab =
@@ -55,117 +56,11 @@ internal class Program
 
     public static void Main(string[] args)
     {
-
-
-        List<int> list = new List<int>() { 20, 1, 4, 8, 9, 44 };
-
-
-        var evenNumbers = list.FindAll((i) =>
-             {
-                 return (i % 2 == 0);
-             });
-        Func<int, bool> intFunc = (x) => x < 10;
-        Func<bool> boolFunc = () => true;
-        List<int> numbers = new List<int>() { 1,2, 3, 4,
-            5, 6, 7, 8, 9, 10 };
-        var evenNums =
-            from num in numbers
-            where num % 2 == 0
-            select num;
-        foreach (var item in evenNums)
-        {
-            Console.Write(item + " ");
-        }
-        Console.WriteLine();
-        string[] words = { "cherry", "apple", "blueberry" };
-        var wordsSortedByLength =
-            from word in words
-            orderby word.Length descending
-            select word;
-        foreach (var word in wordsSortedByLength)
-        {
-            Console.WriteLine(word + " ");
-
-
-        }
-        Console.WriteLine();
-        int[] arr = { 5, 4, 1, 3, 9, 8, 6, 7, 2,
-       0, 10, 11, 12, 13 };
-        int divisor = 5;
-        var numberGroups =
-            from number in arr
-            group number by number % divisor into grroup
-            select new { Remainder = grroup.Key, Numbers = grroup };
-        foreach (var grroup in numberGroups)
-        {
-            Console.WriteLine($"Numbers with a remainder " +
-                $"of{grroup.Remainder}, when divided by {divisor}");
-            foreach (var number in grroup.Numbers)
-            {
-                Console.WriteLine(number);
-            }
-        }
-        Console.WriteLine();
-
-        List<Stu> stus = new List<Stu>() { new Stu("nika", "gulbani", 34), new Stu("ana", "chagunava", 21),
-        new Stu("anamaria", "kereselidze", 23), new Stu("gio", "amashukeli", 24)};
-       List<Stu> studentsByNameComparison = stus.Where(x => x.FirstName.CompareTo(x.LastName) <  0).ToList();
-        var studentsByAgeBetween = stus
-                                             .Where(x => x.Age > 18 && x.Age <= 24)
-                                             .Select(x => $"{x.FirstName} {x.LastName}")
-                                             .ToList();
         
-        NameComparer nComparer = new NameComparer();
-        var namesByDesc = stus.OrderByDescending(x => x.FirstName)
-                                 .ThenBy(x => x.LastName);
-        var namesByDescLinq = (from s in stus
-                       orderby s.FirstName descending,
-                               s.LastName descending
-                       select s).ToList();
-                            
-       foreach (var stu in namesByDesc)
-        {
-            Console.WriteLine(stu);
-        }
-        int[] nums = { 4, 21, 42, 7, 3 };
-        var lambda = nums.Where(x => x % 3 == 0 && x % 7 == 0);
-        Console.WriteLine();
-        foreach (var n in lambda)
-        {
-            Console.WriteLine(n);
-        }
-        var linq = from x in nums
-                   where x % 3 == 0 && x % 7 == 0
-                   select x;
-        foreach (var n in linq)
-        {
-            Console.WriteLine(n);
-        }
-        Console.WriteLine();
-        string text = "this iS a Sample sentence.";
-        string newText = text.CapitalizeFirstLetters();
-        Console.WriteLine(newText);
 
-        (string name, List<string> number)[] phoneBook = {("Kate Wilson" ,new List<string>() { "+3592981981", "+3598862536" }),
-                ("someName",new List<string>(){"1234"})};
-        Dictionary<string, List<string>> dict = new Dictionary<string, List<string>>();
-foreach (var entry in phoneBook)
-{
-            List<string> elements;
-            if (!dict.TryGetValue(entry.name,out elements))
-            {
-                elements = new List<string>();
-                dict[entry.name] = elements;
-            }
-            elements.AddRange(entry.number);
-         
-    
-}
-        
+       
+
     }
-   
-
-
 
 
 
@@ -182,10 +77,10 @@ foreach (var entry in phoneBook)
     {
         int[] result = (int[])arr.Clone();
 
-        // step 1: sort whole array ascending using your merge sort
+       
         MergeSort(result);
 
-        // step 2: reverse the second half in place
+        
         int mid = result.Length / 2;
         int left = mid;
         int right = result.Length - 1;
@@ -202,11 +97,11 @@ foreach (var entry in phoneBook)
     public static int[] SortHalfAscHalfDesc2(int[] arr)
     {
         int[] sorted = (int[])arr.Clone();
-        Array.Sort(sorted); // ascending
+        Array.Sort(sorted); 
 
         int mid = sorted.Length / 2;
 
-        // reverse only the second half
+       
         Array.Reverse(sorted, mid, sorted.Length - mid);
 
         return sorted;
