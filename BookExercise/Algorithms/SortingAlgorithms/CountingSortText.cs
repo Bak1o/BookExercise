@@ -10,6 +10,11 @@ namespace BookExercise.Algorithms.SortingAlgorithms
     {
         public static string Run(string text)
         {
+
+
+            if (string.IsNullOrEmpty(text))
+                return string.Empty;
+                
             string newText = text.ToLower();
             int[] countArr = new int[26];
             int index;

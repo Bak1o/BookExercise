@@ -11,6 +11,15 @@ namespace BookExercise.Algorithms.SortingAlgorithms
        
         public static int[] Run(int[] arr)
         {
+            if (arr == null)
+            {
+                throw new ArgumentNullException(nameof(arr));
+            }
+
+            if (arr.Length == 0)
+            {
+                return Array.Empty<int>();
+            }
             long max = arr
                       .Select(x => Math.Abs((long)x))
                       .Max();

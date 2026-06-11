@@ -10,6 +10,30 @@ namespace SortAlgorithms.Tests
     public class CountingSortTest
     {
         [Fact]
+        public void Sort_NullArray_ThrowsArgumentNullException()
+        {
+            // Arrange
+            int[] arr = null;
+
+            // Act
+            Action act = () => RadixSort.Run(arr);
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(act);
+        }
+        [Fact]
+        public void Sort_EmptyArray_ReturnsEmptyArray()
+        {
+            // Arrange
+            int[] arr = Array.Empty<int>();
+
+            // Act
+            int[] result = RadixSort.Run(arr);
+
+            // Assert
+            Assert.Empty(result);
+        }
+        [Fact]
         public void Sort_AllPositiveNumbers()
         {
             //Arrange
@@ -43,6 +67,7 @@ namespace SortAlgorithms.Tests
             //Assert
             Assert.Equal(expectedResult, sortedArr);
         }
+       
     }
 }
 

@@ -10,6 +10,15 @@ namespace BookExercise.Algorithms.SortingAlgorithms
     {
         public static void Run(int[] arr)
         {
+            if (arr == null)
+            {
+                throw new ArgumentNullException(nameof(arr));
+            }
+
+            if (arr.Length == 0)
+            {
+                return;
+            }
             Divide(arr, 0, arr.Length - 1);
             foreach (int number in arr)
             {

@@ -1,28 +1,36 @@
-﻿using BookExercise.Algorithms.SortingAlgorithms;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using BookExercise.Algorithms.SortingAlgorithms;
+
 namespace SortAlgorithms.Tests
 {
-    public class BubbleSortTest
+    public class InsertionSortTest
     {
         [Fact]
-        public void Sort_NullArray_ReturnsNull()
+        public void Sort_NullArray_ThrowsArgumentNullException()
         {
             //Arrange
             int[] arr = null;
             //Act
-           Action act =() => BubbleSort.Run(arr);
+            Action action = () => InsertionSort.Run(arr);
             //Assert
-            Assert.Throws<ArgumentNullException>(act);
+            Assert.Throws<ArgumentNullException>(action);
         }
+
         [Fact]
         public void Sort_EmptyArray()
         {
             //Arrange
             int[] arr = Array.Empty<int>();
             //Act
-           BubbleSort.Run(arr);
+            InsertionSort.Run(arr);
             //Assert
             Assert.Empty(arr);
         }
+
         [Fact]
         public void Sort_AllPositiveNumbers()
         {
@@ -40,7 +48,7 @@ namespace SortAlgorithms.Tests
         {
             //Arrange
             int[] arr = { -27, -4, -12, -109, -27, -2, -98 };
-            int[] expectedResult = {- 109, -98, -27, -27, -12, -4, -2 };
+            int[] expectedResult = { -109, -98, -27, -27, -12, -4, -2 };
             //Act
             BubbleSort.Run(arr);
             //Assert
@@ -50,8 +58,8 @@ namespace SortAlgorithms.Tests
         public void Sort_MixedSignedNumbers()
         {
             //Arrange
-            int[] arr = { 27, 4, -12, 0, 109, -27, 2, 98};
-            int[] expectedResult = {-27, -12, 0, 2, 4, 27, 98, 109 };
+            int[] arr = { 27, 4, -12, 0, 109, -27, 2, 98 };
+            int[] expectedResult = { -27, -12, 0, 2, 4, 27, 98, 109 };
             //Act
             BubbleSort.Run(arr);
             //Assert

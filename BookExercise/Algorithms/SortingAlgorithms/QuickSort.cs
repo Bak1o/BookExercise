@@ -10,39 +10,57 @@ namespace BookExercise.Algorithms.SortingAlgorithms
     {
         public static void Run(int[] arr)
         {
+            if (arr == null)
+            {
+                throw new ArgumentNullException(nameof(arr));
+            }
+
+            if (arr.Length == 0)
+            {
+                return;
+            }
             Sort(arr,0, arr.Length - 1);
         }
         public static void Sort(int[] arr, int startIndex, int endIndex)
-        {                                              //{ 34, 5, 12, 56, 23, 35, 80, 2, 67 }
+        {                                                               
+                                                                        //{ 34, 5, 12, 56, 23, 35, 80, 2, 67 }
             if (startIndex >= endIndex)
                 return;
-            int pivotIndex = (startIndex + endIndex) / 2;
-            int pivotElement = arr[pivotIndex];
+
+            int pivotElement = arr[(startIndex + endIndex) / 2];
+
             int i = startIndex;
             int j = endIndex;
 
-            while (true)
+            while (i <= j)
             {
-                while (arr[i] < pivotElement && i <= pivotIndex)
+                while (i <= endIndex && arr[i] < pivotElement)
                 {
                     i++;
                 }
-                while (arr[j] > pivotElement && j >= pivotIndex)
+
+                while (j >= startIndex && arr[j] > pivotElement)
                 {
                     j--;
                 }
-                if (i >= j)
-                    break;
-                if (i == pivotIndex)
-                    pivotIndex = j;
-                else if (j == pivotIndex)
-                    pivotIndex = i;
-                Swap(ref arr[i], ref arr[j]);
-                i++;
-                j--;
+
+                if (i <= j)
+                {
+                    Swap(ref arr[i], ref arr[j]);
+                    i++;
+                    j--;
+                }
             }
-            Sort(arr, startIndex, pivotIndex);
-            Sort(arr, pivotIndex + 1, endIndex);
+
+            if (startIndex < j)
+            {
+                Sort(arr, startIndex, j);
+            }
+
+            if (i < endIndex)
+            {
+                Sort(arr, i, endIndex);
+            }
 
 
 

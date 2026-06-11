@@ -10,6 +10,15 @@ namespace BookExercise.Algorithms.SortingAlgorithms
     {
         public static int[] Run(int[] arr)
         {
+            if (arr == null)
+            {
+                throw new ArgumentNullException(nameof(arr));
+            }
+
+            if (arr.Length == 0)
+            {
+                return Array.Empty<int>();
+            }
             int min = arr.Min();
             int max = arr.Max();
             int[] countArr = new int[max - min + 1];

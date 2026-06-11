@@ -10,6 +10,27 @@ namespace SortAlgorithms.Tests
     public class RadixSortTest
     {
         [Fact]
+        public void Sort_NullArray_ThrowsArgumentNullException()
+        {
+            //Arrange
+            int[] arr = null;
+            //Act
+            Action action = () => RadixSort.Run(arr);
+            //Assert
+            Assert.Throws<ArgumentNullException>(action);
+        }
+        [Fact]
+
+        public void Sort_EmptyArray_ReturnsEmptyArray()
+        {
+            //Arrange
+            int[] arr = Array.Empty<int>();
+            //Act
+            int[] newArr = RadixSort.Run(arr);
+            //Assert
+            Assert.Empty(newArr);
+        }
+        [Fact]
         public void Sort_AllPositiveNumbers()
         {
             //Arrange
