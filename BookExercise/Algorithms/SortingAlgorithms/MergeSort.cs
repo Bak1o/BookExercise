@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BookExercise.Algorithms.SortingAlgorithms
 {
-    internal static class MergeSort
+    public static class MergeSort
     {
         public static void Run(int[] arr)
         {

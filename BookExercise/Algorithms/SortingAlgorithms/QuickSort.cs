@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BookExercise.Algorithms.SortingAlgorithms
 {
-    internal class QuickSort
+    public class QuickSort
     {
         public static void Run(int[] arr)
         {

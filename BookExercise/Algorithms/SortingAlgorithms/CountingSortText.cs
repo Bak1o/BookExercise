@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BookExercise.Algorithms.SortingAlgorithms
 {
-    internal class CountingSortText
+    public class CountingSortText
     {
         public static string Run(string text)
         {

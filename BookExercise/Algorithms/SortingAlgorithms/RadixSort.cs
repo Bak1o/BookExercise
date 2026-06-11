@@ -6,82 +6,58 @@ using System.Threading.Tasks;
 
 namespace BookExercise.Algorithms.SortingAlgorithms
 {
-    internal class RadixSort
+    public class RadixSort
     {
+       
         public static int[] Run(int[] arr)
         {
-            int max = arr.Max();
-            int num = max - 1;
-            int baseNum = 10;
-            int count = 0;
-            while (num != max)
-            {
-                num = max % baseNum;
-                count++;
-                baseNum = baseNum * 10;
-
-            }
-            baseNum = 1;
-            int maxBaseNum;
-            for (int i = 0; i < count; i++)
-            {
-                baseNum = baseNum * 10;
-            }
-            maxBaseNum = baseNum;
-            baseNum = 10;
-            return Sort(arr, baseNum, maxBaseNum);
+            long max = arr
+                      .Select(x => Math.Abs((long)x))
+                      .Max();
+           
+            return Sort(arr, 1, max);
         }
-        public static int[] Sort(int[] arr, int baseNum, int maxBaseNum)
+        public static int[] Sort(int[] arr, long place, long MaxMagnitude)
         {
 
-            if (baseNum > maxBaseNum)
+            if (place > MaxMagnitude)
             {
                 return arr;
             }
             int i;
             int sum = 0;
-            int[] bucketArr = new int[10];
+            int[] bucketArr = new int[19];
 
             int[] newArr = new int[arr.Length];
 
             int index = -1;
             for (i = 0; i < arr.Length; i++)
             {
-                index = MapNumberIntoBucketIndex(arr[i], baseNum);
+                index = MapNumberIntoBucketIndex(arr[i], place);
                 bucketArr[index] = bucketArr[index] + 1;
             }
-            for (i = 0; i < bucketArr.Length; i++)
+            for (i = 1; i < bucketArr.Length; i++)
             {
-                if (bucketArr[i] == 0)                                         //{ 170, 45, 75, 90, 802, 24, 2, 66 }
-                    continue;
-                sum = sum + bucketArr[i];
-                bucketArr[i] = sum;
+                
+                bucketArr[i] = bucketArr[i - 1] + bucketArr[i];
             }
             for (i = arr.Length - 1; i >= 0; i--)
             {
 
-                index = MapNumberIntoBucketIndex(arr[i], baseNum);
+                index = MapNumberIntoBucketIndex(arr[i], place);
                 newArr[bucketArr[index] - 1] = arr[i];
                 bucketArr[index]--;
             }
-            return Sort(newArr, baseNum * 10, maxBaseNum);
+            return Sort(newArr, place * 10, MaxMagnitude);
 
 
 
         }
 
-        public static int MapNumberIntoBucketIndex(int number, int baseNum)
+        public static int MapNumberIntoBucketIndex(int number, long place)
         {
-            int currentBase = 10;
-            int baseTen = 10;
-            int index = -1;
-            while (currentBase <= baseNum)
-            {
-                index = number % baseTen;
-                number = number / baseTen;
-                currentBase = currentBase * 10;
-            }
-            return index;
+            int digit = (int)((number / place) % 10);
+            return digit + 9;
 
         }
     }

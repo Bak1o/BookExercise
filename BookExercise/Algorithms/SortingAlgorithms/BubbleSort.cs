@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BookExercise.Algorithms.SortingAlgorithms
 {
-    internal class BubbleSort
+    public class BubbleSort
     {
         public static void Run(int[] arr)
         {                                                              ///5, 3, 2, 7, 9, 1;
